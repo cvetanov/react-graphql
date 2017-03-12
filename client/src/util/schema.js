@@ -17,7 +17,6 @@ type Account {
 
 type Query {
   channels: [Channel],
-  account: Account,
-  transactions: [Transaction]
+  account: Account
 }
 `;
