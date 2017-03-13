@@ -7,7 +7,7 @@ import { TransactionList } from './Transaction';
 
 const accountsListQuery = gql`
    query AccountsListQuery {
-     account {
+     account(id: "account-1") {
        id,
        balance,
        transactions {

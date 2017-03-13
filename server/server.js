@@ -1,12 +1,13 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import _ from 'lodash';
+import cors from 'cors';
 
 import { accounts, accountsMap } from './mock';
 import schema from './schema';
 
 let app  = express();
-let PORT = 3000;
+let PORT = 3001;
 
 const root = {
   // queries
@@ -28,7 +29,7 @@ const root = {
   }
 };
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', cors(), graphqlHTTP({
   schema,
   rootValue: root,
   graphiql: true
