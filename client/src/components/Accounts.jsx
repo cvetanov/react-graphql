@@ -12,7 +12,31 @@ const accountsQuery = gql`
    }
  `;
 
-const AccountsList = ({ data: { loading, error, accounts }, onChange}) => {
+const accountPropType = React.PropTypes.shape({
+  id: React.PropTypes.string
+});
+
+export const accountsQueryPropType = React.PropTypes.shape({
+  loading: React.PropTypes.bool,
+  error: React.PropTypes.bool,
+  accounts: React.PropTypes.arrayOf(accountPropType)
+});
+
+export const AccountSelection = ({ accounts, value, onChange }) => {
+  return (
+    <select onChange={onChange} value={value}>
+      <option value="" />
+      {accounts.map(account => <option value={account.id} key={account.id}>{account.id}</option>)}
+    </select>
+  );
+};
+AccountSelection.propTypes = {
+  accounts: React.PropTypes.arrayOf(accountPropType),
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func.isRequired
+};
+
+const AccountsList = ({ data: { loading, error, accounts }, value, onChange}) => {
   if (loading) {
     return <div>Account data loading...</div>
   }
@@ -24,17 +48,22 @@ const AccountsList = ({ data: { loading, error, accounts }, onChange}) => {
     <div>
       <span>Available accounts</span>
       <div>
-        <select onChange={onChange}>
-          <option value="" />
-          {accounts.map(account => <option value={account.id} key={account.id}>{account.id}</option>)}
-        </select>
+        <AccountSelection accounts={accounts} value={value} onChange={onChange} />
       </div>
     </div>
   )
 };
 
 AccountsList.propTypes = {
+  data: accountsQueryPropType,
+  value: React.PropTypes.string,
   onChange: React.PropTypes.func
 };
 
+
 export const AccountsWithData = graphql(accountsQuery)(AccountsList);
+
+AccountsWithData.propTypes = {
+  value: React.PropTypes.string,
+  onChange: React.PropTypes.func
+};

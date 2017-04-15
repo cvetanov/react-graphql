@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AccountWithData } from './Account';
 import { AccountsWithData } from './Accounts';
+import { TransactionInputWithMutation } from './TransactionInput';
 
 export default class Container extends Component {
 
@@ -19,9 +20,10 @@ export default class Container extends Component {
     const { accountId } = this.state;
     return (
       <div>
-        <AccountsWithData onChange={this.changeAccountId} />
+        <AccountsWithData onChange={this.changeAccountId} value={accountId} />
         <br />
         <AccountWithData accountId={accountId} />
+        <TransactionInputWithMutation />
       </div>
     )
   }

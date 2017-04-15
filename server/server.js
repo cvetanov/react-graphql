@@ -32,7 +32,8 @@ const root = {
 app.use('/graphql', cors(), graphqlHTTP({
   schema,
   rootValue: root,
-  graphiql: true
+  graphiql: true,
+  formatError: (err) => { console.error(err); return err; }
 }));
 
 let server = app.listen(PORT, function () {
