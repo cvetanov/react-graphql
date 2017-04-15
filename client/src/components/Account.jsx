@@ -5,9 +5,9 @@ import {
 } from 'react-apollo';
 import { TransactionList } from './Transaction';
 
-const accountsListQuery = gql`
-   query AccountsListQuery {
-     account(id: "account-1") {
+const accountById = gql`
+   query AccountQuery($accountId: String) {
+     account(id: $accountId) {
        id,
        balance,
        transactions {
@@ -25,6 +25,9 @@ const Account = ({ data: { loading, error, account }}) => {
   if (error) {
     return <div>Error loading account data!</div>
   }
+  if (!account) {
+    return <div>No data</div>
+  }
 
   return (
     <div>
@@ -36,4 +39,14 @@ const Account = ({ data: { loading, error, account }}) => {
   )
 };
 
-export const AccountWithData = graphql(accountsListQuery)(Account);
+export const AccountWithData = graphql(accountById, {
+  options: ({ accountId }) => ({
+    variables: {
+      accountId
+    }
+  })
+})(Account);
+
+AccountWithData.propTypes = {
+  accountId: React.PropTypes.string.isRequired
+};

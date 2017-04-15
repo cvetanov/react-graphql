@@ -5,7 +5,7 @@ import { client } from './util/client';
 import logo from './logo.svg';
 import './App.css';
 
-import { AccountWithData } from './components/Account';
+import Container from './components/Container';
 
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h2>Welcome to Apollo</h2>
           </div>
-          <AccountWithData />
+          <Container />
         </div>
       </ApolloProvider>
     );
