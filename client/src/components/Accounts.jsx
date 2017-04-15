@@ -18,7 +18,7 @@ const accountPropType = React.PropTypes.shape({
 
 export const accountsQueryPropType = React.PropTypes.shape({
   loading: React.PropTypes.bool,
-  error: React.PropTypes.bool,
+  error: React.PropTypes.shape({}),
   accounts: React.PropTypes.arrayOf(accountPropType)
 });
 
